@@ -2,7 +2,7 @@ import { Timestamp } from 'firebase/firestore';
 import moment from 'moment';
 import { Box, Flex, Icon, Spinner, Stack, Text } from '@chakra-ui/react';
 import { FaReddit } from "react-icons/fa";
-import { IoArrowDownCircleOutline, IoArrowUpCircleOutline } from "react-icons/io5";
+import { AiOutlineDelete } from 'react-icons/ai';
 
 export interface Comment {
     id: string
@@ -43,14 +43,15 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, onDeleteComment, loa
                 </Text>
                 <Stack direction='row' align='center' cursor='pointer' color='gray.500' pl={2}>
                     {userId === comment.creatorId && (
-                        <>
-                            <Text fontSize='9pt' _hover={{ color: 'blue.500' }}>
-                                Edit
-                            </Text>
-                            <Text fontSize='9pt' _hover={{ color: 'blue.500' }} onClick={() => onDeleteComment(comment)}>
+                        <Flex
+                            onClick={() => onDeleteComment(comment)}
+                            _hover={{ color: 'blue.500' }}
+                        >
+                            <Icon as={AiOutlineDelete} mr={1} />
+                            <Text fontSize='9pt'>
                                 Delete
                             </Text>
-                        </>
+                        </Flex>
                     )}
                 </Stack>
             </Stack>

@@ -85,7 +85,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
                             <Text>Created {moment(new Date(communityData.createdAt?.seconds * 1000)).format('MMM DD, YYYY')}</Text>
                         )}
                     </Flex>
-                    <Link href={`/r/${communityData.id}/sumbit`}>
+                    <Link href={`/r/${communityData.id}/submit`}>
                         <Button mt={3} height='30px'>
                             Create Post
                         </Button>

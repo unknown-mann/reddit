@@ -90,7 +90,9 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
                 {error && (
                     <Alert status='error'>
                         <AlertIcon />
-                        <Text mr={2}>{error}</Text>
+                        <Text mr={2} color='gray.800'>
+                            {error}
+                        </Text>
                     </Alert>
                 )}
                 <Stack spacing={1} p='10px'>

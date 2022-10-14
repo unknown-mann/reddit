@@ -139,7 +139,7 @@ const usePosts = () => {
             //check if image, delete if exists from fireBase storage
             if (post.imageURL) {
 
-                const imageRef = ref(storage, `posts./${post.id}/image`)
+                const imageRef = ref(storage, `posts/${post.id}/image`)
                 await deleteObject(imageRef)
             }
 
