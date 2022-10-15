@@ -1,10 +1,11 @@
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import About from '../../../components/Community/About';
 import PageContent from '../../../components/Layout/PageContent';
 import NewPostForm from '../../../components/Posts/PostForm/NewPostForm';
 import { auth } from '../../../firebase/clientApp';
 import useCommunityData from '../../../hooks/useCommunityData';
+import AuthButtons from '../../../components/Navbar/RightContent/AuthButtons';
 
 const SubmitPostPage = () => {
 
@@ -20,7 +21,23 @@ const SubmitPostPage = () => {
                         Create a post
                     </Text>
                 </Box>
-                {user && <NewPostForm user={user} communityImageURL={communityStateValue.currentCommunity?.imageURL} />}
+                {user ? (
+                    <NewPostForm user={user} communityImageURL={communityStateValue.currentCommunity?.imageURL} />
+                ) : (
+                    <Flex
+                        align="center"
+                        justify="space-between"
+                        borderRadius={2}
+                        bg='white'
+                        p={4}
+                        px={8}
+                    >
+                        <Text fontWeight={600} color='gray.800' mr={5}>
+                            Log in or sign up to create a post
+                        </Text>
+                        <AuthButtons />
+                    </Flex>
+                )}
             </>
             <>
                 {communityStateValue.currentCommunity && (

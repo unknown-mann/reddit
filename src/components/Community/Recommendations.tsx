@@ -65,52 +65,63 @@ const Recommendations = () => {
                     </Stack>
                 ) : (
                     <>
-                        {communities.map((item, index) => {
-                            const isJoined = !!communityStateValue.mySnippets.find(snippet => snippet.communityId === item.id)
-                            return (
-                                <Link href={`/r/${item.id}`} key={item.id}>
-                                    <Flex
-                                        position='relative'
-                                        align='center'
-                                        fontSize='10pt'
-                                        borderBottom='1px solid'
-                                        borderColor='gray.200'
-                                        p='10px 12px'
-                                        cursor='pointer'
-                                        _hover={{ bg: 'gray.100' }}
-                                    >
-                                        <Flex width='80%' align='center'>
-                                            <Flex width='10%'>
-                                                <Text color='gray.800' fontWeight={600}>{index + 1}</Text>
-                                            </Flex>
-                                            <Flex width='80%' align='center' color='gray.800' fontWeight={500}>
-                                                {item.imageURL ? (
-                                                    <Image src={item.imageURL} borderRadius='full' boxSize='28px' mr={2} />
-                                                ) : (
-                                                    <Icon as={FaReddit} fontSize={30} color='brand.100' mr={2} />
-                                                )}
-                                                <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                                    {`r/${item.id}`}
-                                                </span>
-                                            </Flex>
-                                        </Flex>
-                                        <Box position='absolute' right='10px'>
-                                            <Button
-                                                height='22px'
-                                                fontSize='8pt'
-                                                variant={isJoined ? 'outline' : 'solid'}
-                                                onClick={evt => {
-                                                    evt.stopPropagation()
-                                                    onJoinOrLeaveCommunity(item, isJoined)
-                                                }}
+                        {!communities.length ? (
+                            <Flex direction='column' justify='center' align='center' height='125px'>
+                                <Icon as={FaReddit} fontSize={40} color='gray.400' />
+                                <Text mt={1} color='gray.400' fontSize={14}>
+                                    No communities yet
+                                </Text>
+                            </Flex>
+                        ) : (
+                            <>
+                                {communities.map((item, index) => {
+                                    const isJoined = !!communityStateValue.mySnippets.find(snippet => snippet.communityId === item.id)
+                                    return (
+                                        <Link href={`/r/${item.id}`} key={item.id}>
+                                            <Flex
+                                                position='relative'
+                                                align='center'
+                                                fontSize='10pt'
+                                                borderBottom='1px solid'
+                                                borderColor='gray.200'
+                                                p='10px 12px'
+                                                cursor='pointer'
+                                                _hover={{ bg: 'gray.100' }}
                                             >
-                                                {isJoined ? 'Joined' : 'Join'}
-                                            </Button>
-                                        </Box>
-                                    </Flex>
-                                </Link>
-                            )
-                        })}
+                                                <Flex width='80%' align='center'>
+                                                    <Flex width='10%'>
+                                                        <Text color='gray.800' fontWeight={600}>{index + 1}</Text>
+                                                    </Flex>
+                                                    <Flex width='80%' align='center' color='gray.800' fontWeight={500}>
+                                                        {item.imageURL ? (
+                                                            <Image src={item.imageURL} borderRadius='full' boxSize='28px' mr={2} />
+                                                        ) : (
+                                                            <Icon as={FaReddit} fontSize={30} color='brand.100' mr={2} />
+                                                        )}
+                                                        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                            {`r/${item.id}`}
+                                                        </span>
+                                                    </Flex>
+                                                </Flex>
+                                                <Box position='absolute' right='10px'>
+                                                    <Button
+                                                        height='22px'
+                                                        fontSize='8pt'
+                                                        variant={isJoined ? 'outline' : 'solid'}
+                                                        onClick={evt => {
+                                                            evt.stopPropagation()
+                                                            onJoinOrLeaveCommunity(item, isJoined)
+                                                        }}
+                                                    >
+                                                        {isJoined ? 'Joined' : 'Join'}
+                                                    </Button>
+                                                </Box>
+                                            </Flex>
+                                        </Link>
+                                    )
+                                })}
+                            </>
+                        )}
                     </>
                 )}
             </Flex>

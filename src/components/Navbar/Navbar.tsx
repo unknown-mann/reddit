@@ -3,34 +3,31 @@ import { Flex, Image } from "@chakra-ui/react";
 import { auth } from "../../firebase/clientApp";
 import RightContent from "./RightContent/RightContent";
 import Directory from './Directory/Directory'
-import useDirectory from "../../hooks/useDirectory";
-import { defaultMenuItem } from "../../atoms/directoryMenuAtom";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
 
     const [user] = useAuthState(auth)
 
-    const { onSelectMenuItem } = useDirectory()
+    const router = useRouter()
 
     return (
         <Flex
             bg='white'
             height='44px'
             padding='6px 12px'
-            justify={{ md: 'space-between' }}
+            justify='space-between'
         >
             <Flex
                 align='center'
-                width={{ base: '40px', md: 'auto' }}
                 mr={{ base: 0, md: 2 }}
                 cursor='pointer'
-                onClick={() => onSelectMenuItem(defaultMenuItem)}
+                onClick={() => router.push('/')}
             >
                 <Image src="/images/redditFace.svg" height='30px' />
                 <Image
                     src="/images/redditText.svg"
                     height='46px'
-                    display={{ base: 'none', md: 'unset' }}
                 />
             </Flex>
             {user && <Directory />}

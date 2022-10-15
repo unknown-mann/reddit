@@ -53,6 +53,8 @@ const CommentInput: React.FC<CommentInputProps> = ({ commentText, setCommentText
                         <Button
                             height="26px"
                             cursor='pointer'
+                            _hover={{ bg: !commentText.length ? '' : 'blue.400' }}
+                            _active={{ bg: !commentText.length ? '' : 'blue.200' }}
                             disabled={!commentText.length}
                             isLoading={createLoading}
                             onClick={onCreateComment}

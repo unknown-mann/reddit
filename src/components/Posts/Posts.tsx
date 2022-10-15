@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Flex, Icon, Stack, Text } from '@chakra-ui/react';
+import { Flex, Icon, Spinner, Stack, Text } from '@chakra-ui/react';
 import { FaReddit } from 'react-icons/fa';
 import { Community } from '../../atoms/communitiesAtom';
 import { Post } from '../../atoms/postsAtom';
 import { auth, firestore } from '../../firebase/clientApp';
 import usePosts from '../../hooks/usePosts';
 import PostItem from './PostItem';
-import PostLoader from './PostLoader';
 
 interface PostsProps {
     communityData: Community
@@ -48,7 +47,9 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
     return (
         <>
             {loading ? (
-                <PostLoader />
+                <Flex justify='center' align='center' height='50%'>
+                    <Spinner size='xl' color='gray.500' />
+                </Flex>
             ) : (
                 <Stack>
                     {postStateValue.posts.length ? (

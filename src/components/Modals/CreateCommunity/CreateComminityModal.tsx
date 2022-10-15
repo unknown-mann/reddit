@@ -6,7 +6,6 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, Modal
 import { BsFillPersonFill, BsFillEyeFill } from "react-icons/bs";
 import { HiLockClosed } from 'react-icons/hi'
 import { auth, firestore } from "../../../firebase/clientApp";
-import useDirectory from "../../../hooks/useDirectory";
 
 interface CreateComminityModalProps {
     open: boolean
@@ -23,7 +22,6 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const router = useRouter()
-    const { toggleMenuOpen } = useDirectory()
 
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -71,7 +69,6 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
             })
 
             handleClose()
-            toggleMenuOpen()
             router.push(`r/${communityName}`)
         } catch (error: any) {
             console.log(error);
@@ -79,6 +76,8 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
         }
 
         setLoading(false)
+        setCommunityName('')
+
     }
 
     return (
@@ -188,8 +187,11 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
                         <Button
                             variant="solid"
                             height="30px"
-                            onClick={handleCreateComminity}
+                            _active={{ bg: 'blue.500' }}
+                            _hover={{ bg: 'blue.400' }}
                             isLoading={loading}
+                            disabled={!communityName}
+                            onClick={handleCreateComminity}
                         >
                             Create Community
                         </Button>

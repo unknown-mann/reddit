@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from "next/router";
 import Link from 'next/link';
 import moment from "moment";
-import { Alert, AlertIcon, Flex, Icon, Image, Skeleton, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Alert, AlertIcon, Button, Flex, Icon, Image, Skeleton, Spinner, Stack, Text } from "@chakra-ui/react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsChat, BsDot } from "react-icons/bs";
 import { FaReddit } from "react-icons/fa";
@@ -29,7 +29,8 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
 
     const singlePostPage = !onSelectPost
 
-    const handleDelete = async (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    //independent for each post item
+    const handleDelete = async (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
         evt.stopPropagation()
         setLoadingDelete(true)
@@ -153,23 +154,21 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
                         <Text fontSize='9pt'>{post.numberOfComments}</Text>
                     </Flex>
                     {userIsCreator && (
-                        <Flex
-                            align='center'
+                        <Button
+                            height='auto'
+                            display='flex'
+                            alignItems='center'
                             p='8px 10px'
                             borderRadius={4}
+                            fontWeight={500}
                             _hover={{ bgColor: 'gray.200' }}
-                            cursor='pointer'
+                            variant='unstyled'
+                            isLoading={loadingDelete}
+                            leftIcon={< AiOutlineDelete />}
                             onClick={handleDelete}
                         >
-                            {loadingDelete ? (
-                                <Spinner size='sm' />
-                            ) : (
-                                <>
-                                    <Icon as={AiOutlineDelete} mr={2} />
-                                    <Text fontSize='9pt'>Delete </Text>
-                                </>
-                            )}
-                        </Flex>
+                            Delete
+                        </Button>
                     )}
                 </Flex>
             </Flex>

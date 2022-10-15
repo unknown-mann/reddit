@@ -18,8 +18,8 @@ const Directory: React.FC = () => {
                 _hover={{ outline: '1px solid', outlineColor: 'gray.200' }}
                 onClick={toggleMenuOpen}
             >
-                <Flex align='center' justify='space-between' width={{ base: 'auto', lg: '200px' }}>
-                    <Flex align='center'>
+                <Flex align='center' justify='space-between'>
+                    <Flex align='center' mr={2}>
                         {directoryState.selectedMenuItem.imageURL ? (
                             <Image
                                 src={directoryState.selectedMenuItem.imageURL}

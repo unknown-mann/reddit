@@ -28,7 +28,7 @@ const TextInputs: React.FC<TextInputsProps> = ({ textInputs, onChange, handleCre
             />
             <Textarea
                 name='body'
-                placeholder='Text'
+                placeholder="Text (optional)"
                 value={textInputs.body}
                 onChange={onChange}
                 borderColor="gray.100"

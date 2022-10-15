@@ -48,7 +48,9 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
                         <Button
                             variant={isJoined ? 'outline' : 'solid'}
                             height='30px'
-                            px={6}
+                            width='80px'
+                            _active={{ bg: isJoined ? 'auto' : 'blue.500' }}
+                            _hover={{ bg: isJoined ? 'auto' : 'blue.400', opacity: isJoined ? 0.8 : 1 }}
                             isLoading={loading}
                             onClick={() => onJoinOrLeaveCommunity(communityData, isJoined)}
                         >

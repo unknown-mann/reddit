@@ -6,7 +6,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useSetRecoilState } from 'recoil';
 import { Box, Button, Divider, Flex, Icon, Stack, Text, Image } from '@chakra-ui/react';
 import moment from 'moment';
-import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { RiCakeLine } from 'react-icons/ri'
 import { FaReddit } from 'react-icons/fa';
 import { auth, firestore, storage } from '../../firebase/clientApp';
@@ -86,7 +85,11 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
                         )}
                     </Flex>
                     <Link href={`/r/${communityData.id}/submit`}>
-                        <Button mt={3} height='30px'>
+                        <Button
+                            height='30px'
+                            mt={3}
+                            _active={{ bg: 'blue.500' }}
+                        >
                             Create Post
                         </Button>
                     </Link>

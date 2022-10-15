@@ -10,10 +10,10 @@ import MenuListItem from './MenuListItem';
 const Communities = () => {
 
     const [open, setOpen] = useState(false)
-    const mySnippets = useRecoilValue(communityState).mySnippets
+    const { mySnippets } = useRecoilValue(communityState)
 
     const moderatingCommunities = mySnippets.filter(snippet => snippet.isModerator).map(snippet => snippet)
-    const myCommunities = mySnippets.map(snippet => snippet)
+    const myCommunities = mySnippets.filter(snippet => !snippet.isModerator).map(snippet => snippet)
 
     return (
         <>
@@ -37,7 +37,7 @@ const Communities = () => {
             )}
             <Box mt={3} mb={4} >
                 <Text pl={3} mb={1} fontSize='7pt' fontWeight={500} color='gray.500'>
-                    MY COMMUNITIES
+                    OTHER COMMUNITIES
                 </Text>
                 <MenuItem
                     width='100%'
@@ -47,7 +47,7 @@ const Communities = () => {
                     onClick={() => setOpen(true)}
                 >
                     <Flex align='center'>
-                        <Icon as={GrAdd} fontSize={20} mr={2} />
+                        <Icon as={GrAdd} fontSize={18} mr={2} />
                         Create Community
                     </Flex>
                 </MenuItem>

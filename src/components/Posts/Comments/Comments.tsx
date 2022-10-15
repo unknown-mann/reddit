@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { collection, doc, getDocs, increment, orderBy, query, serverTimestamp, Timestamp, where, writeBatch } from 'firebase/firestore';
 import { User } from 'firebase/auth';
 import { useSetRecoilState } from 'recoil';
-import { Box, Flex, SkeletonCircle, SkeletonText, Stack, Text } from '@chakra-ui/react';
+import { Box, Flex, Spinner, Stack, Text } from '@chakra-ui/react';
 import { Post, postState } from '../../../atoms/postsAtom';
 import { firestore } from '../../../firebase/clientApp';
 import CommentInput from './CommentInput';
@@ -127,26 +127,19 @@ const Comments: React.FC<CommentsProps> = ({ user, selectedPost, communityId }) 
     return (
         <Box bg='white' borderRadius='0px 0px 4px 4px' p={2}>
             <Flex direction='column' pl={10} pr={4} mb={6} fontSize='10pt' width='100%'>
-                {!fetchLoading && (
-                    <CommentInput
-                        commentText={commentText}
-                        setCommentText={setCommentText}
-                        user={user}
-                        createLoading={createLoading}
-                        onCreateComment={onCreateComment}
-                    />
-                )}
+                <CommentInput
+                    commentText={commentText}
+                    setCommentText={setCommentText}
+                    user={user}
+                    createLoading={createLoading}
+                    onCreateComment={onCreateComment}
+                />
             </Flex>
             <Stack spacing={6} p={2}>
                 {fetchLoading ? (
-                    <>
-                        {[0, 1, 2].map((item) => (
-                            <Box key={item} padding="6" bg="white">
-                                <SkeletonCircle size="10" />
-                                <SkeletonText mt="4" noOfLines={2} spacing="4" />
-                            </Box>
-                        ))}
-                    </>
+                    <Flex justify='center' align='center' height='65px'>
+                        <Spinner size='xl' color='gray.500' />
+                    </Flex>
                 ) : (
                     <>
                         {comments.length === 0 ? (
@@ -156,7 +149,7 @@ const Comments: React.FC<CommentsProps> = ({ user, selectedPost, communityId }) 
                                 align="center"
                                 borderTop="1px solid"
                                 borderColor="gray.100"
-                                p={20}
+                                p={5}
                             >
                                 <Text fontWeight={700} opacity={0.3} color='gray.800'>
                                     No Comments Yet
