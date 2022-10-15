@@ -97,12 +97,6 @@ const usePosts = () => {
                 }
             }
 
-            //update our post document
-            const postRef = doc(firestore, 'posts', post.id!)
-            batch.update(postRef, {
-                voteStatus: voteStatus + voteChange
-            }) 
-
             //update state with updated values
             const postIdx = postStateValue.posts.findIndex(item => item.id === post.id)
             updatedPosts[postIdx] = updatedPost
@@ -119,6 +113,12 @@ const usePosts = () => {
                     selectedPost: updatedPost
                 }))
             }
+
+            //update our post document
+            const postRef = doc(firestore, 'posts', post.id!)
+            batch.update(postRef, {
+                voteStatus: voteStatus + voteChange
+            })
 
             await batch.commit()
         } catch (error: any) {
@@ -178,6 +178,7 @@ const usePosts = () => {
 
     useEffect(() => {
         if (!user) {
+            // Clear user post votes
             setPostStateValue(prev => ({
                 ...prev,
                 postVotes: []

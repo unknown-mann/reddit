@@ -82,7 +82,7 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
 
     return (
         <>
-            <Modal isOpen={open} onClose={handleClose} size='lg'>
+            <Modal isOpen={open} onClose={handleClose} size={{ base: 'sm', md: 'lg' }}>
                 <ModalOverlay />
                 <ModalContent bg='white' color='gray.800'>
                     <ModalHeader
@@ -133,11 +133,11 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
                                         isChecked={communityType === "public"}
                                         onChange={onCommunityTypeChange}
                                     >
-                                        <Flex alignItems="center">
-                                            <Icon as={BsFillPersonFill} mr={2} color="gray.500" />
-                                            <Text fontSize="10pt" mr={1}>
-                                                Public
-                                            </Text>
+                                        <Flex alignItems={{ base: 'flex-start', md: "center" }} direction={{ base: 'column', md: 'row' }}>
+                                            <Flex align='center'>
+                                                <Icon as={BsFillPersonFill} mr={2} color="gray.500" />
+                                                <Text fontSize="10pt" mr={1}>Public</Text>
+                                            </Flex>
                                             <Text fontSize="8pt" color="gray.500" pt={1}>
                                                 Anyone can view, post, and comment to this community
                                             </Text>
@@ -149,11 +149,11 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
                                         isChecked={communityType === "restricted"}
                                         onChange={onCommunityTypeChange}
                                     >
-                                        <Flex alignItems="center">
-                                            <Icon as={BsFillEyeFill} color="gray.500" mr={2} />
-                                            <Text fontSize="10pt" mr={1}>
-                                                Restricted
-                                            </Text>
+                                        <Flex alignItems={{ base: 'flex-start', md: "center" }} direction={{ base: 'column', md: 'row' }}>
+                                            <Flex align='center'>
+                                                <Icon as={BsFillEyeFill} color="gray.500" mr={2} />
+                                                <Text fontSize="10pt" mr={1}>Restricted</Text>
+                                            </Flex>
                                             <Text fontSize="8pt" color="gray.500" pt={1}>
                                                 Anyone can view this community, but only approved users can
                                                 post
@@ -166,11 +166,11 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
                                         isChecked={communityType === "private"}
                                         onChange={onCommunityTypeChange}
                                     >
-                                        <Flex alignItems="center">
-                                            <Icon as={HiLockClosed} color="gray.500" mr={2} />
-                                            <Text fontSize="10pt" mr={1}>
-                                                Private
-                                            </Text>
+                                        <Flex alignItems={{ base: 'flex-start', md: "center" }} direction={{ base: 'column', md: 'row' }}>
+                                            <Flex alignItems="center">
+                                                <Icon as={HiLockClosed} color="gray.500" mr={2} />
+                                                <Text fontSize="10pt" mr={1}>Private</Text>
+                                            </Flex>
                                             <Text fontSize="8pt" color="gray.500" pt={1}>
                                                 Only approved users can view and submit to this community
                                             </Text>

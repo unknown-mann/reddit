@@ -97,9 +97,9 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
                     </Alert>
                 )}
                 <Stack spacing={1} p='10px'>
-                    <Stack direction='row' spacing={0.6} align='center' fontSize='9pt'>
+                    <Stack direction={{ base: 'column', md: 'row' }} align={{ base: 'flex-start', md: 'center' }} spacing={0.6} fontSize='9pt'>
                         {homePage && (
-                            <>
+                            <Flex align='center'>
                                 {post.communityImageURL ? (
                                     <Image src={post.communityImageURL} borderRadius='full' boxSize='18px' mr={2} />
                                 ) : (
@@ -115,8 +115,8 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
                                         {`r/${post.communityId}`}
                                     </Text>
                                 </Link>
-                                <Icon as={BsDot} color='gray.500' fontSize={8} />
-                            </>
+                                <Icon as={BsDot} color='gray.500' fontSize={8} display={{ base: 'none', md: 'unset' }} />
+                            </Flex>
                         )}
                         <Text color='gray.500'>
                             Posted by u/{post.creatorDisplayName}{" "}
