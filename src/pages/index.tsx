@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
+import { collection, getDocs, limit, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Flex, Icon, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Post, PostVote } from '../atoms/postsAtom'
@@ -94,12 +94,26 @@ const Home: NextPage = () => {
         where('postId', 'in', postIds)
       )
 
-      const postVoteDocs = await getDocs(postVotesQuery)
-      const postVotes = postVoteDocs.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-      setPostStateValue(prev => ({
-        ...prev,
-        postVotes: postVotes as PostVote[]
-      }))
+      // const postVoteDocs = await getDocs(postVotesQuery)
+      // const postVotes = postVoteDocs.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+      // setPostStateValue(prev => ({
+      //   ...prev,
+      //   postVotes: postVotes as PostVote[]
+      // }))
+
+      const unsubscribe = onSnapshot(postVotesQuery, (querySnapshot) => {
+        const postVotes = querySnapshot.docs.map((postVote) => ({
+          id: postVote.id,
+          ...postVote.data(),
+        }));
+
+        setPostStateValue((prev) => ({
+          ...prev,
+          postVotes: postVotes as PostVote[],
+        }));
+      });
+
+      return () => unsubscribe();
 
     } catch (error: any) {
       console.log(error.message);
@@ -118,17 +132,30 @@ const Home: NextPage = () => {
     }
   }, [user, loadingUser])
 
+  // useEffect(() => {
+  //   if (user && postStateValue.posts.length) {
+  //     getUserPostVotes()
+  //   }
+  //   return () => {
+  //     setPostStateValue(prev => ({
+  //       ...prev,
+  //       postVotes: []
+  //     }))
+  //   }
+  // }, [user, postStateValue.posts])
+
   useEffect(() => {
-    if (user && postStateValue.posts.length) {
-      getUserPostVotes()
-    }
+    if (!user?.uid || !postStateValue.posts.length) return;
+    getUserPostVotes();
+
+    // Clear postVotes on dismount
     return () => {
-      setPostStateValue(prev => ({
+      setPostStateValue((prev) => ({
         ...prev,
-        postVotes: []
-      }))
-    }
-  }, [user, postStateValue.posts])
+        postVotes: [],
+      }));
+    };
+  }, [postStateValue.posts, user?.uid]);
 
   useEffect(() => {
     const { communityId } = router.query

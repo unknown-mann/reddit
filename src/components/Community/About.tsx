@@ -20,7 +20,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
 
     const [user] = useAuthState(auth)
 
-    const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile()
+    const { selectedFile, onSelectFile } = useSelectFile()
 
     const selectedFileRef = useRef<HTMLInputElement>(null)
 
