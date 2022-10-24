@@ -15,7 +15,7 @@ const Login: React.FC = () => {
         password: ''
     })
 
-    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth)
+    const [signInWithEmailAndPassword, _, loading, error] = useSignInWithEmailAndPassword(auth)
 
     const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setLoginForm(prev => ({

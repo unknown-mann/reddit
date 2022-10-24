@@ -18,7 +18,7 @@ const SignUp: React.FC = () => {
 
     const [error, setError] = useState('')
 
-    const [createUserWithEmailAndPassword, _, lodaing, userError] = useCreateUserWithEmailAndPassword(auth)
+    const [createUserWithEmailAndPassword, _, loading, userError] = useCreateUserWithEmailAndPassword(auth)
 
     const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setSignUpForm(prev => ({
@@ -87,7 +87,7 @@ const SignUp: React.FC = () => {
             </Text>
             <Button
                 type='submit'
-                isLoading={lodaing}
+                isLoading={loading}
                 width='100%'
                 height='36px'
                 my={2}

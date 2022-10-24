@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from "next/router";
 import Link from 'next/link';
 import moment from "moment";
@@ -8,6 +8,7 @@ import { BsChat, BsDot } from "react-icons/bs";
 import { FaReddit } from "react-icons/fa";
 import { IoArrowDownCircleOutline, IoArrowDownCircleSharp, IoArrowUpCircleOutline, IoArrowUpCircleSharp } from "react-icons/io5";
 import { Post } from '../../atoms/postsAtom';
+import CustomAlert from './CustomAlert';
 
 interface PostItemProps {
     post: Post
@@ -23,6 +24,13 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
 
     const router = useRouter()
 
+    const [isAlertOpen, setAlertOpen] = useState(false)
+
+    const handleAlertOpen = (evt: React.MouseEvent<HTMLButtonElement>) => {
+        evt.stopPropagation()
+        setAlertOpen(true)
+    }
+
     const [loadingImage, setLoadingImage] = useState(true)
     const [loadingDelete, setLoadingDelete] = useState(false)
     const [error, setError] = useState('')
@@ -30,9 +38,8 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
     const singlePostPage = !onSelectPost
 
     //independent for each post item
-    const handleDelete = async (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleDelete = async () => {
 
-        evt.stopPropagation()
         setLoadingDelete(true)
 
         try {
@@ -154,21 +161,29 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
                         <Text fontSize='9pt'>{post.numberOfComments}</Text>
                     </Flex>
                     {userIsCreator && (
-                        <Button
-                            height='auto'
-                            display='flex'
-                            alignItems='center'
-                            p='8px 10px'
-                            borderRadius={4}
-                            fontWeight={500}
-                            _hover={{ bgColor: 'gray.200' }}
-                            variant='unstyled'
-                            isLoading={loadingDelete}
-                            leftIcon={< AiOutlineDelete />}
-                            onClick={handleDelete}
-                        >
-                            Delete
-                        </Button>
+                        <>
+                            <Button
+                                height='auto'
+                                display='flex'
+                                alignItems='center'
+                                p='8px 10px'
+                                borderRadius={4}
+                                fontWeight={500}
+                                _hover={{ bgColor: 'gray.200' }}
+                                variant='unstyled'
+                                leftIcon={< AiOutlineDelete />}
+                                onClick={handleAlertOpen}
+                            >
+                                Delete
+                            </Button>
+                            <CustomAlert
+                                isOpen={isAlertOpen}
+                                onClose={() => setAlertOpen(false)}
+                                name='Post'
+                                onDelete={handleDelete}
+                                loadingDelete={loadingDelete}
+                            />
+                        </>
                     )}
                 </Flex>
             </Flex>

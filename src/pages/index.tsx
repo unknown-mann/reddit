@@ -94,13 +94,6 @@ const Home: NextPage = () => {
         where('postId', 'in', postIds)
       )
 
-      // const postVoteDocs = await getDocs(postVotesQuery)
-      // const postVotes = postVoteDocs.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-      // setPostStateValue(prev => ({
-      //   ...prev,
-      //   postVotes: postVotes as PostVote[]
-      // }))
-
       const unsubscribe = onSnapshot(postVotesQuery, (querySnapshot) => {
         const postVotes = querySnapshot.docs.map((postVote) => ({
           id: postVote.id,
@@ -131,18 +124,6 @@ const Home: NextPage = () => {
       buildNoUserHomeFeed()
     }
   }, [user, loadingUser])
-
-  // useEffect(() => {
-  //   if (user && postStateValue.posts.length) {
-  //     getUserPostVotes()
-  //   }
-  //   return () => {
-  //     setPostStateValue(prev => ({
-  //       ...prev,
-  //       postVotes: []
-  //     }))
-  //   }
-  // }, [user, postStateValue.posts])
 
   useEffect(() => {
     if (!user?.uid || !postStateValue.posts.length) return;

@@ -1,14 +1,15 @@
+import { useState } from 'react';
 import { signOut, User } from 'firebase/auth';
 import { useSetRecoilState } from 'recoil';
 import { Menu, MenuButton, MenuList, MenuItem, Icon, Flex, MenuDivider, Text } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { FaRedditSquare } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
-import { IoSparkles } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineLogin } from "react-icons/md";
 import { auth } from '../../../firebase/clientApp';
 import { authModalState } from '../../../atoms/authModalAtom';
+import ProfileMenu from './ProfileMenu';
 
 interface UserMenuProps {
     user?: User | null
@@ -17,6 +18,8 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
 
     const setAuthModalState = useSetRecoilState(authModalState)
+
+    const [isProfileMenuOpen, setProfileMenuOpen] = useState(false)
 
     const logout = async () => {
         await signOut(auth)
@@ -63,6 +66,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
                             fontSize='10pt'
                             fontWeight={700}
                             _hover={{ bg: 'gray.100' }}
+                            onClick={() => setProfileMenuOpen(true)}
                         >
                             <Flex align='center'>
                                 <Icon as={CgProfile} fontSize={20} mr={2} />
@@ -86,7 +90,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
                 ) : (
                     <MenuItem
                         fontSize='10pt'
-                        fontWeight={700} 
+                        fontWeight={700}
                         color='gray.800'
                         _hover={{ bg: 'gray.100' }}
                         onClick={() => setAuthModalState({ open: true, view: 'login' })}
@@ -98,6 +102,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
                     </MenuItem>
                 )}
             </MenuList>
+            <ProfileMenu isOpen={isProfileMenuOpen} onClose={() => setProfileMenuOpen(false)} />
         </Menu>
     );
 };

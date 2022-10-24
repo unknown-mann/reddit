@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import moment from 'moment';
 import { Box, Button, Flex, Icon, Stack, Text } from '@chakra-ui/react';
 import { FaReddit } from "react-icons/fa";
 import { AiOutlineDelete } from 'react-icons/ai';
+import CustomAlert from '../CustomAlert';
 
 export interface Comment {
     id: string
@@ -23,6 +25,9 @@ interface CommentItemProps {
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({ comment, onDeleteComment, loadingDelete, userId }) => {
+
+    const [isAlertOpen, setAlertOpen] = useState(false)
+
     return (
         <Flex>
             <Box>
@@ -42,20 +47,28 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, onDeleteComment, loa
                 </Text>
                 <Stack direction='row' align='center' cursor='pointer' color='gray.500' pl={2}>
                     {userId === comment.creatorId && (
-                        <Button
-                            display='flex'
-                            alignItems='center'
-                            fontSize='9pt'
-                            fontWeight={500}
-                            height='auto'
-                            _hover={{ color: 'blue.500' }}
-                            isLoading={loadingDelete}
-                            variant='unstyled'
-                            leftIcon={<AiOutlineDelete />}
-                            onClick={() => onDeleteComment(comment)}
-                        >
-                            Delete
-                        </Button>
+                        <>
+                            <Button
+                                display='flex'
+                                alignItems='center'
+                                fontSize='9pt'
+                                fontWeight={500}
+                                height='auto'
+                                _hover={{ color: 'blue.500' }}
+                                variant='unstyled'
+                                leftIcon={<AiOutlineDelete />}
+                                onClick={() => setAlertOpen(true)}
+                            >
+                                Delete
+                            </Button>
+                            <CustomAlert
+                                isOpen={isAlertOpen}
+                                onClose={() => setAlertOpen(false)}
+                                name='Comment'
+                                onDelete={() => onDeleteComment(comment)}
+                                loadingDelete={loadingDelete}
+                            />
+                        </>
                     )}
                 </Stack>
             </Stack>
