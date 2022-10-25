@@ -1,35 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Reddit - клон Реддита
 
-## Getting Started
+## 📓 Описание проекта:
 
-First, run the development server:
+Проект был сконфигурирован при помощи шаблона `npx create-next-app@latest --ts`
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Приложение адаптировано под mobile, tablet, desktop
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Cтэк:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+* `TypeScript`
+* `React`
+* `Next.js`
+* `Firebase`
+* `Recoil`
+* `Chakra UI`
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## ⚙️ Описание функциональности
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Представляю вашему вниманию Full Stack приложение.
 
-## Learn More
+### Авторизация и новостная лента
 
-To learn more about Next.js, take a look at the following resources:
+При запуске приложения вы попадете на главную страницу. Вы можете авторизоваться через Google или через ранее созданный аккаунт. Если у вас еще нет аккаунта, вы можете зарегистрироваться используя любой валидный e-mail. Если же вы забыли пароль от ранее созданного аккаунта, мы можете с легкостью восстановить пароль, получив ссылку на почту. Вам будут доступны для превью 10 постов в ленте с самым высоким рейтингом, отсортированные по убыванию. После авторизации лента будет сконфигурирована исходя из постов сообществ на которые вы подписаны, посты будут отсортированы от более новых к более старым. В основной ленте вы можете просматривать посты из разных сообществ, ставить рейтинг, удалять свои посты и видеть общее количество комментарии оставленные под каждым постом.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![e96bffefc19a6c2251ec2bae6ca1d273785dedad](https://user-images.githubusercontent.com/99764749/197866393-604c0260-dedf-48d7-9ab6-c85b4a58d4af.gif)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+### Посты
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Кликнув на интересующий вас пост вы перейдете на страницу с данным постом, где также сможете ставить рейтинг, но также появится возможность просматривать оставленные другими пользователями комментарии и удалять свои. Здесь же будет информация о сообществе в котором был опубликован этот пост.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# reddit
+![b606d1d378b0dffa794bb64e9ecad15f7a48fe02](https://user-images.githubusercontent.com/99764749/197867990-8a20df70-079d-4e0c-86a2-61593c23980d.gif)
+
+### Страница сообщества
+
+
+
+
+## 🧪 Опыт и сложности:
