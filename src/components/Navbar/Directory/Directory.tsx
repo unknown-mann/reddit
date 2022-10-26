@@ -23,6 +23,8 @@ const Directory: React.FC = () => {
                         {directoryState.selectedMenuItem.imageURL ? (
                             <Image
                                 src={directoryState.selectedMenuItem.imageURL}
+                                alt='logo'
+                                objectFit='cover'
                                 borderRadius='full'
                                 boxSize='24px'
                                 mr={2}

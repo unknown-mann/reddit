@@ -91,6 +91,8 @@ const SignUp: React.FC = () => {
                 width='100%'
                 height='36px'
                 my={2}
+                _hover={{ bgColor: 'blue.400' }}
+                _active={{ bgColor: 'blue.200' }}
             >
                 Sign Up
             </Button>

@@ -94,7 +94,14 @@ const Recommendations = () => {
                                                     </Flex>
                                                     <Flex width='80%' align='center' color='gray.800' fontWeight={500}>
                                                         {item.imageURL ? (
-                                                            <Image src={item.imageURL} borderRadius='full' boxSize='28px' mr={2} />
+                                                            <Image
+                                                                borderRadius='full'
+                                                                boxSize='28px'
+                                                                mr={2}
+                                                                objectFit='cover'
+                                                                alt='logo'
+                                                                src={item.imageURL}
+                                                            />
                                                         ) : (
                                                             <Icon as={FaReddit} fontSize={30} color='brand.100' mr={2} />
                                                         )}

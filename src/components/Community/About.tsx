@@ -110,7 +110,8 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
                                     {communityData.imageURL || selectedFile ? (
                                         <Image
                                             src={selectedFile || communityData.imageURL}
-                                            alt='Community Image'
+                                            alt='logo'
+                                            objectFit='cover'
                                             borderRadius='full'
                                             boxSize='40px'
                                         />

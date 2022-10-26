@@ -2,9 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Box, Text, Input, Stack, Checkbox, Flex, Icon, Divider } from "@chakra-ui/react";
-import { BsFillPersonFill, BsFillEyeFill } from "react-icons/bs";
-import { HiLockClosed } from 'react-icons/hi'
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Box, Text, Input, Flex, Icon } from "@chakra-ui/react";
+import { BsFillPersonFill } from "react-icons/bs";
 import { auth, firestore } from "../../../firebase/clientApp";
 
 interface CreateComminityModalProps {
@@ -18,7 +17,6 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
 
     const [communityName, setCommunityName] = useState('')
     const [charsRemaining, setCharsRemaining] = useState(21)
-    const [communityType, setCommunityType] = useState('public')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const router = useRouter()
@@ -29,10 +27,6 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
 
         setCommunityName(evt.target.value)
         setCharsRemaining(21 - evt.target.value.length)
-    }
-
-    const onCommunityTypeChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        setCommunityType(evt.target.name)
     }
 
     const handleCreateComminity = async () => {
@@ -59,8 +53,7 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
                 transaction.set(communityDocRef, {
                     creatorId: user?.uid,
                     createdAt: serverTimestamp(),
-                    numberOfMembers: 1,
-                    privacyType: communityType
+                    numberOfMembers: 1
                 })
                 transaction.set(doc(firestore, `users/${user?.uid}/communitySnippets`, communityName), {
                     communityId: communityName,
@@ -106,7 +99,7 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
                             <Text fontWeight={600} fontSize={15}>
                                 Name
                             </Text>
-                            <Text fontSize={11} color='gray.500'>
+                            <Text fontSize={11} color='gray.500' mb={-2}>
                                 Community names including capitalization cannot be changed
                             </Text>
                             <Text position='relative' top='28px' left='10px' width='20px' color='gray.400'>
@@ -116,7 +109,11 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
                                 position='relative'
                                 size='sm'
                                 pl='22px'
-                                borderColor='gray.200'
+                                borderColor="gray.200"
+                                color="gray.800"
+                                _hover={{ borderColor: "gray.300" }}
+                                _placeholder={{ color: 'gray.500' }}
+                                _focus={{ outline: 'none' }}
                                 value={communityName}
                                 onChange={handleChange}
                             />
@@ -124,59 +121,17 @@ const CreateComminityModal: React.FC<CreateComminityModalProps> = ({ open, handl
                                 {charsRemaining} Characters remaining
                             </Text>
                             <Text fontSize='9pt' color='red' pt={1}>{error}</Text>
-                            <Box my={4}>
-                                <Text fontWeight={600} fontSize={15}>Community type</Text>
-                                <Stack spacing={2} pt={1}>
-                                    <Checkbox
-                                        borderColor='gray.200'
-                                        name="public"
-                                        isChecked={communityType === "public"}
-                                        onChange={onCommunityTypeChange}
-                                    >
-                                        <Flex alignItems={{ base: 'flex-start', md: "center" }} direction={{ base: 'column', md: 'row' }}>
-                                            <Flex align='center'>
-                                                <Icon as={BsFillPersonFill} mr={2} color="gray.500" />
-                                                <Text fontSize="10pt" mr={1}>Public</Text>
-                                            </Flex>
-                                            <Text fontSize="8pt" color="gray.500" pt={1}>
-                                                Anyone can view, post, and comment to this community
-                                            </Text>
-                                        </Flex>
-                                    </Checkbox>
-                                    <Checkbox
-                                        borderColor='gray.200'
-                                        name="restricted"
-                                        isChecked={communityType === "restricted"}
-                                        onChange={onCommunityTypeChange}
-                                    >
-                                        <Flex alignItems={{ base: 'flex-start', md: "center" }} direction={{ base: 'column', md: 'row' }}>
-                                            <Flex align='center'>
-                                                <Icon as={BsFillEyeFill} color="gray.500" mr={2} />
-                                                <Text fontSize="10pt" mr={1}>Restricted</Text>
-                                            </Flex>
-                                            <Text fontSize="8pt" color="gray.500" pt={1}>
-                                                Anyone can view this community, but only approved users can
-                                                post
-                                            </Text>
-                                        </Flex>
-                                    </Checkbox>
-                                    <Checkbox
-                                        borderColor='gray.200'
-                                        name="private"
-                                        isChecked={communityType === "private"}
-                                        onChange={onCommunityTypeChange}
-                                    >
-                                        <Flex alignItems={{ base: 'flex-start', md: "center" }} direction={{ base: 'column', md: 'row' }}>
-                                            <Flex alignItems="center">
-                                                <Icon as={HiLockClosed} color="gray.500" mr={2} />
-                                                <Text fontSize="10pt" mr={1}>Private</Text>
-                                            </Flex>
-                                            <Text fontSize="8pt" color="gray.500" pt={1}>
-                                                Only approved users can view and submit to this community
-                                            </Text>
-                                        </Flex>
-                                    </Checkbox>
-                                </Stack>
+                            <Box my={2}>
+                                <Text fontWeight={600} fontSize={15} mb={1}>Community type</Text>
+                                <Flex alignItems='flex-start' direction='column'>
+                                    <Flex align='center'>
+                                        <Icon as={BsFillPersonFill} mr={2} color="gray.500" />
+                                        <Text fontSize="10pt" mr={1}>Public</Text>
+                                    </Flex>
+                                    <Text fontSize="8pt" color="gray.500" pt={1}>
+                                        Anyone can view, post, and comment to this community
+                                    </Text>
+                                </Flex>
                             </Box>
                         </ModalBody>
                     </Box>

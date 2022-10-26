@@ -108,7 +108,14 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
                         {homePage && (
                             <Flex align='center'>
                                 {post.communityImageURL ? (
-                                    <Image src={post.communityImageURL} borderRadius='full' boxSize='18px' mr={2} />
+                                    <Image
+                                        borderRadius='full'
+                                        boxSize='18px'
+                                        mr={2}
+                                        objectFit='cover'
+                                        alt='logo'
+                                        src={post.communityImageURL}
+                                    />
                                 ) : (
                                     <Icon as={FaReddit} fontSize='18pt' mr={1} color='blue.500' />
                                 )}
@@ -127,6 +134,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, userIsCreator, userVoteValue,
                         )}
                         <Text color='gray.500'>
                             Posted by u/{post.creatorDisplayName}{" "}
+                            <Icon as={BsDot} color='gray.500' fontSize={8} />
                             {moment(new Date(post.createdAt.seconds * 1000)).fromNow()}
                         </Text>
                     </Stack>

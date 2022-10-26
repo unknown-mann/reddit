@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { query, collection, where, getDocs } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRecoilValue } from 'recoil';
-import { Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Box, Avatar, Flex, Text, Center, Stack } from '@chakra-ui/react';
+import { Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Box, Avatar, Flex, Text, Stack } from '@chakra-ui/react';
 import moment from 'moment';
 import { communityState } from '../../../atoms/communitiesAtom';
 import { auth, firestore } from '../../../firebase/clientApp';
@@ -46,7 +46,12 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ isOpen, onClose }) => {
     return (
         <Drawer onClose={onClose} isOpen={isOpen} size='full'>
             <DrawerOverlay />
-            <DrawerContent backdropFilter='blur(8px)' bgColor='blackAlpha.400' p={{ base: '20px', md: '100px 300px' }}>
+            <DrawerContent
+                p={{ base: '20px', md: '100px 300px' }}
+                color='white'
+                backdropFilter='blur(8px)'
+                bgColor='blackAlpha.400'
+            >
                 <DrawerCloseButton />
                 <DrawerHeader fontSize='3xl'>
                     Profile

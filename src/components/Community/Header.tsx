@@ -26,7 +26,8 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
                             top={-3}
                             color='blue.500'
                             border='4px solid white'
-                            alt=''
+                            objectFit='cover'
+                            alt='logo'
                             src={communityStateValue.currentCommunity.imageURL}
                         />
                     ) : (

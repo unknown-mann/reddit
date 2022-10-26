@@ -44,7 +44,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ selectedFile, setSelectedFile
                             ref={selectedFileRef}
                             onChange={onSelectImage}
                             type='file'
-                            accept="image/x-png,image/gif,image/jpeg"
+                            accept="image/x-png, image/gif, image/jpeg, image/webp"
                             hidden
                         />
                     </Flex>

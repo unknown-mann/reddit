@@ -39,6 +39,7 @@ const Home: NextPage = () => {
         const postQuery = query(
           collection(firestore, 'posts'),
           where('communityId', 'in', myCommunityIds),
+          orderBy('createdAt', 'desc'),
           limit(10)
         )
 

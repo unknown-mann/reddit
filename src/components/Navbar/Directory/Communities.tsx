@@ -35,10 +35,12 @@ const Communities = () => {
                     ))}
                 </Box>
             )}
-            <Box mt={3} mb={4} >
-                <Text pl={3} mb={1} fontSize='7pt' fontWeight={500} color='gray.500'>
-                    OTHER COMMUNITIES
-                </Text>
+            <Box my={2} >
+                {!!myCommunities.length && (
+                    <Text pl={3} mb={1} fontSize='7pt' fontWeight={500} color='gray.500'>
+                        OTHER COMMUNITIES
+                    </Text>
+                )}
                 <MenuItem
                     width='100%'
                     color='gray.800'

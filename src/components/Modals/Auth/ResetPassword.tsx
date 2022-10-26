@@ -57,6 +57,8 @@ const ResetPassword: React.FC = () => {
                             mt={2}
                             type="submit"
                             isLoading={sending}
+                            _hover={{ bgColor: 'blue.400' }}
+                            _active={{ bgColor: 'blue.200' }}
                         >
                             Reset Password
                         </Button>
